@@ -1,0 +1,15 @@
+{
+  "name": "tsconfig-doctor",
+  "version": "0.0.1",
+  "description": "Diagnose common tsconfig.json configuration problems.",
+  "license": "MIT",
+  "private": true,
+  "author": "Epi Lo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Epi-1120/tsconfig-doctor.git"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
