@@ -11,8 +11,20 @@ export function calcPercentage(correct, total) {
   return Math.round((correct / total) * 100)
 }
 
-// some certs use scaled scores (CISA 450/900) so we normalize to 70%
 export function didPass(pct, passingScore) {
   if (passingScore > 100) return pct >= 70
   return pct >= passingScore
+}
+
+export function domainBreakdown(questions, selected, domains) {
+  return domains
+    .map(d => {
+      const indices = []
+      questions.forEach((q, i) => { if (q.domain === d) indices.push(i) })
+      const total = indices.length
+      if (total === 0) return null
+      const correct = indices.filter(i => selected[i] === questions[i].correctIndex).length
+      return { domain: d, correct, total, pct: Math.round((correct / total) * 100) }
+    })
+    .filter(Boolean)
 }
