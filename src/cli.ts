@@ -2,6 +2,7 @@
 import { cac } from 'cac';
 import { resolve } from 'node:path';
 import { check } from './check.js';
+import { renderConsole } from './report.js';
 
 const cli = cac('tsconfig-doctor');
 
@@ -16,15 +17,7 @@ cli
       skip: flags.skip?.split(',').map((s) => s.trim()).filter(Boolean),
     });
 
-    if (result.issues.length === 0) {
-      process.stdout.write(`tsconfig-doctor: no issues found in ${result.tsconfigPath}\n`);
-      return;
-    }
-    for (const i of result.issues) {
-      process.stdout.write(`[${i.severity}] ${i.rule}: ${i.message}\n`);
-      if (i.fix) process.stdout.write(`  fix: ${i.fix}\n`);
-    }
-    process.stdout.write(`\nErrors: ${result.counts.error}, Warnings: ${result.counts.warning}, Info: ${result.counts.info}\n`);
+    process.stdout.write(renderConsole(result) + '\n');
     if (result.counts.error > 0) process.exit(1);
   });
 
