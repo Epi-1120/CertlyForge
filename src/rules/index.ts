@@ -4,6 +4,7 @@ import { strictFlagsShadow } from './strict-flags-shadow.js';
 import { pathsWithoutBaseurl } from './paths-without-baseurl.js';
 import { targetOldForEngines } from './target-old-for-engines.js';
 import { deprecatedOptions } from './deprecated-options.js';
+import { isolatedModulesForEsm } from './isolated-modules-for-esm.js';
 
 export const rules: readonly Rule[] = [
   moduleResolutionMismatch,
@@ -11,6 +12,7 @@ export const rules: readonly Rule[] = [
   pathsWithoutBaseurl,
   targetOldForEngines,
   deprecatedOptions,
+  isolatedModulesForEsm,
 ];
 
 export function findRule(id: string): Rule | undefined {
