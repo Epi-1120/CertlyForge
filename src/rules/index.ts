@@ -5,6 +5,7 @@ import { pathsWithoutBaseurl } from './paths-without-baseurl.js';
 import { targetOldForEngines } from './target-old-for-engines.js';
 import { deprecatedOptions } from './deprecated-options.js';
 import { isolatedModulesForEsm } from './isolated-modules-for-esm.js';
+import { allowSyntheticWithoutInterop } from './allow-synthetic-without-interop.js';
 
 export const rules: readonly Rule[] = [
   moduleResolutionMismatch,
@@ -13,6 +14,7 @@ export const rules: readonly Rule[] = [
   targetOldForEngines,
   deprecatedOptions,
   isolatedModulesForEsm,
+  allowSyntheticWithoutInterop,
 ];
 
 export function findRule(id: string): Rule | undefined {
