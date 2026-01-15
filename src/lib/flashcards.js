@@ -49,6 +49,8 @@ export async function addCard(uid, deckId, front, back) {
 export async function deleteCard(uid, deckId, cardId) { if (!db) return; await remove(ref(db, `users/${uid}/cards/${deckId}/${cardId}`)); const cards = await getCards(uid, deckId); await update(ref(db, `users/${uid}/decks/${deckId}`), { cardCount: cards.length, updatedAt: new Date().toISOString() }) }
 
 // filter due cards
+// was using setInterval to poll this every 30s but that was dumb
+// just compute it when the user opens the deck
 export function getDueCards(cards) {
   const now = new Date().toISOString()
   return cards.filter(c => !c.nextReview || c.nextReview <= now)
