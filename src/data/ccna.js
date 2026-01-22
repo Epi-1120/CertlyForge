@@ -1,0 +1,18 @@
+﻿export const ccnaQuestions = [
+  { id: 'ccna_1', question: 'Which OSI layer handles routing?', options: ['Layer 1', 'Layer 2', 'Layer 3', 'Layer 4'], correctIndex: 2, explanation: 'Layer 3 (Network) uses IP addresses for routing.', domain: 'Fundamentals' },
+  { id: 'ccna_2', question: 'Purpose of ARP?', options: ['DNS resolution', 'IP to MAC resolution', 'Encrypt traffic', 'Assign IPs'], correctIndex: 1, explanation: 'ARP maps IP to MAC on local network.', domain: 'Fundamentals' },
+  { id: 'ccna_3', question: 'Which device operates at Layer 2?', options: ['Router', 'Switch', 'Hub', 'Firewall'], correctIndex: 1, explanation: 'Switches use MAC addresses (Layer 2).', domain: 'Fundamentals' },
+  { id: 'ccna_4', question: 'Default subnet mask for Class C?', options: ['255.0.0.0', '255.255.0.0', '255.255.255.0', '255.255.255.255'], correctIndex: 2, explanation: '/24 = 254 usable hosts.', domain: 'Fundamentals' },
+  { id: 'ccna_5', question: 'Which protocol provides reliable delivery?', options: ['UDP', 'TCP', 'ICMP', 'ARP'], correctIndex: 1, explanation: 'TCP = reliable with acks and retransmission.', domain: 'Fundamentals' },
+  { id: 'ccna_6', question: 'Purpose of a VLAN?', options: ['Connect networks', 'Logical segmentation without physical separation', 'Encrypt switch traffic', 'Wireless access'], correctIndex: 1, explanation: 'VLANs reduce broadcast domains logically.', domain: 'Network Access' },
+  { id: 'ccna_7', question: 'What is a trunk port?', options: ['End device port', 'Carries multiple VLANs between switches', 'Management port', 'Blocked port'], correctIndex: 1, explanation: 'Trunk = tagged multi-VLAN traffic.', domain: 'Network Access' },
+  { id: 'ccna_8', question: 'Trunk encapsulation protocol?', options: ['STP', '802.1Q', 'LACP', 'VTP'], correctIndex: 1, explanation: '802.1Q adds VLAN tags to frames.', domain: 'Network Access' },
+  { id: 'ccna_9', question: 'STP prevents?', options: ['IP conflicts', 'Layer 2 loops', 'Routing loops', 'VLAN hopping'], correctIndex: 1, explanation: 'STP prevents broadcast storms from L2 loops.', domain: 'Network Access' },
+  { id: 'ccna_10', question: 'What is EtherChannel?', options: ['VLAN type', 'Bundle multiple links into one', 'Routing protocol', 'Wireless standard'], correctIndex: 1, explanation: 'Bundles links for bandwidth and redundancy.', domain: 'Network Access' },
+  { id: 'ccna_11', question: 'Administrative distance of static route?', options: ['0', '1', '90', '110'], correctIndex: 1, explanation: 'Static=1, Connected=0, OSPF=110.', domain: 'IP Connectivity' },
+  { id: 'ccna_12', question: 'Which protocol uses link-state?', options: ['RIP', 'EIGRP', 'OSPF', 'BGP'], correctIndex: 2, explanation: 'OSPF uses Dijkstra link-state algorithm.', domain: 'IP Connectivity' },
+  { id: 'ccna_13', question: 'Purpose of default route?', options: ['Local routing', 'Forward when no specific match', 'Block traffic', 'Prioritize traffic'], correctIndex: 1, explanation: '0.0.0.0/0 = gateway of last resort.', domain: 'IP Connectivity' },
+  { id: 'ccna_14', question: 'Usable hosts in /28?', options: ['14', '16', '30', '62'], correctIndex: 0, explanation: '4 host bits = 16 - 2 = 14 usable.', domain: 'Fundamentals' },
+  { id: 'ccna_15', question: 'What does NAT do?', options: ['Encrypts', 'Translates private to public IP', 'Assigns IPs', 'Routes between VLANs'], correctIndex: 1, explanation: 'NAT maps private RFC1918 to public addresses.', domain: 'IP Services' }
+]
+export const ccnaExam = { id: 'ccna', name: 'CCNA', fullName: 'Cisco Certified Network Associate', color: '#0284C7', domains: ['Fundamentals', 'Network Access', 'IP Connectivity', 'IP Services', 'Security', 'Automation'], passingScore: 83, timeMinutes: 120, questions: ccnaQuestions }
