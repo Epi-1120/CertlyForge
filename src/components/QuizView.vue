@@ -25,11 +25,12 @@
   </div>
 </template>
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 const props = defineProps({ exam: Object })
 const idx = ref(0)
 const answers = ref({})
 const submitted = ref(false)
+watch(() => props.exam.id, () => { idx.value = 0; answers.value = {}; submitted.value = false })
 const current = computed(() => props.exam.questions[idx.value])
 const correct = computed(() => { let c = 0; props.exam.questions.forEach((q, i) => { if (answers.value[i] === q.correctIndex) c++ }); return c })
 const pct = computed(() => Math.round(correct.value / props.exam.questions.length * 100))
@@ -51,3 +52,4 @@ const pct = computed(() => Math.round(correct.value / props.exam.questions.lengt
 .review.wrong { border-left-color: #ef4444; background: #fef2f2; }
 .expl { color: #666; font-size: 0.85rem; font-style: italic; }
 </style>
+
