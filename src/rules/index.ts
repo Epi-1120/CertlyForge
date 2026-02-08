@@ -7,6 +7,7 @@ import { deprecatedOptions } from './deprecated-options.js';
 import { isolatedModulesForEsm } from './isolated-modules-for-esm.js';
 import { allowSyntheticWithoutInterop } from './allow-synthetic-without-interop.js';
 import { declarationWithoutOutdir } from './declaration-without-outdir.js';
+import { decoratorMetadataPair } from './decorator-metadata-pair.js';
 
 export const rules: readonly Rule[] = [
   moduleResolutionMismatch,
@@ -17,6 +18,7 @@ export const rules: readonly Rule[] = [
   isolatedModulesForEsm,
   allowSyntheticWithoutInterop,
   declarationWithoutOutdir,
+  decoratorMetadataPair,
 ];
 
 export function findRule(id: string): Rule | undefined {
