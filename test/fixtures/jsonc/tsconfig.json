@@ -1,0 +1,10 @@
+// A JSONC tsconfig with comments and a trailing comma.
+{
+  "compilerOptions": {
+    /* Strict is enabled so we inherit the full bundle. */
+    "strict": true,
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext", // matches module
+  },
+}

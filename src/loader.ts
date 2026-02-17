@@ -3,9 +3,55 @@ import { dirname, isAbsolute, join, resolve } from 'node:path';
 import type { ProjectContext } from './types.js';
 
 /**
- * Deep-merge `source` onto `target`. Objects are merged; arrays and scalars are overwritten.
- * Returns a new object; inputs are not mutated.
+ * Strip // line comments, /* block comments *\/ and trailing commas from a JSONC string.
+ * Respects string literals and escaped characters so we do not accidentally mangle
+ * legitimate content.
  */
+function stripJsonc(src: string): string {
+  let out = '';
+  let i = 0;
+  const n = src.length;
+  while (i < n) {
+    const c = src[i];
+    const next = src[i + 1];
+    // Line comment
+    if (c === '/' && next === '/') {
+      while (i < n && src[i] !== '\n') i += 1;
+      continue;
+    }
+    // Block comment
+    if (c === '/' && next === '*') {
+      i += 2;
+      while (i < n && !(src[i] === '*' && src[i + 1] === '/')) i += 1;
+      i += 2;
+      continue;
+    }
+    // String literal
+    if (c === '"') {
+      out += c;
+      i += 1;
+      while (i < n) {
+        const sc = src[i];
+        out += sc;
+        i += 1;
+        if (sc === '\\') {
+          if (i < n) {
+            out += src[i];
+            i += 1;
+          }
+          continue;
+        }
+        if (sc === '"') break;
+      }
+      continue;
+    }
+    out += c;
+    i += 1;
+  }
+  // Remove trailing commas before } or ]
+  return out.replace(/,(\s*[}\]])/g, '$1');
+}
+
 function deepMerge<T extends Record<string, unknown>>(target: T, source: Partial<T>): T {
   const out: Record<string, unknown> = { ...target };
   for (const [k, v] of Object.entries(source)) {
@@ -26,8 +72,9 @@ function deepMerge<T extends Record<string, unknown>>(target: T, source: Partial
 }
 
 function parseJson(text: string, file: string): Record<string, unknown> {
+  const stripped = stripJsonc(text);
   try {
-    return JSON.parse(text) as Record<string, unknown>;
+    return JSON.parse(stripped) as Record<string, unknown>;
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     throw new Error(`Failed to parse ${file}: ${msg}`);
@@ -35,17 +82,14 @@ function parseJson(text: string, file: string): Record<string, unknown> {
 }
 
 function resolveExtends(spec: string, baseDir: string): string {
-  // Relative path — as in the TypeScript docs.
   if (spec.startsWith('./') || spec.startsWith('../') || isAbsolute(spec)) {
     const candidate = isAbsolute(spec) ? spec : resolve(baseDir, spec);
     if (existsSync(candidate) && statSync(candidate).isFile()) return candidate;
-    // Allow omitted .json extension.
     if (!candidate.endsWith('.json') && existsSync(candidate + '.json')) {
       return candidate + '.json';
     }
     throw new Error(`extends path not found: ${spec} (from ${baseDir})`);
   }
-  // Bare specifier — try node_modules/<spec>/tsconfig.json and node_modules/<spec>.
   const candidates = [
     resolve(baseDir, 'node_modules', spec),
     resolve(baseDir, 'node_modules', spec, 'tsconfig.json'),
@@ -56,10 +100,6 @@ function resolveExtends(spec: string, baseDir: string): string {
   throw new Error(`extends specifier not resolvable: ${spec}`);
 }
 
-/**
- * Load tsconfig merging any `extends` chain. Returns the merged tsconfig and the
- * absolute path to the leaf (entry) tsconfig.
- */
 export function loadTsconfig(entryPath: string): {
   tsconfig: Record<string, unknown>;
   compilerOptions: Record<string, unknown>;
@@ -86,7 +126,6 @@ export function loadTsconfig(entryPath: string): {
       return deepMerge(parentCfg, cfg);
     }
     if (Array.isArray(ext)) {
-      // TS 5.0+: extends can be an array, processed left-to-right.
       let merged: Record<string, unknown> = {};
       for (const one of ext) {
         if (typeof one !== 'string') continue;
@@ -104,10 +143,6 @@ export function loadTsconfig(entryPath: string): {
   return { tsconfig, compilerOptions, tsconfigPath: abs };
 }
 
-/**
- * Locate the nearest package.json relative to a tsconfig path by walking upwards.
- * Returns undefined if none is found below the filesystem root.
- */
 export function findNearestPackageJson(
   from: string
 ): { packageJson: Record<string, unknown>; packageJsonDir: string } | undefined {
