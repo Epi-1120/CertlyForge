@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import { cac } from 'cac';
 import { resolve } from 'node:path';
-import { check } from './check.js';
+import { check, exceedsThreshold } from './check.js';
 import { renderConsole, renderJson, renderMarkdown } from './report.js';
+import type { Severity } from './types.js';
 
 type Format = 'console' | 'markdown' | 'json';
 
@@ -15,9 +16,18 @@ cli
   .option('--format <format>', 'Output format: console | markdown | json', {
     default: 'console',
   })
+  .option('--max-severity <severity>', 'Fail when any issue reaches this severity (info | warning | error)', {
+    default: 'error',
+  })
   .action((
     path: string | undefined,
-    flags: { only?: string; skip?: string; format?: Format }
+    flags: {
+      only?: string;
+      skip?: string;
+      format?: Format;
+      'max-severity'?: Severity;
+      maxSeverity?: Severity;
+    }
   ) => {
     const target = resolve(path ?? 'tsconfig.json');
     const result = check(target, {
@@ -33,9 +43,11 @@ cli
           ? renderMarkdown(result)
           : renderConsole(result);
     process.stdout.write(body + '\n');
-    if (result.counts.error > 0) process.exit(1);
+
+    const threshold = (flags.maxSeverity ?? flags['max-severity'] ?? 'error') as Severity;
+    if (exceedsThreshold(result, threshold)) process.exit(1);
   });
 
 cli.help();
-cli.version('0.0.1');
+cli.version('0.1.0');
 cli.parse();

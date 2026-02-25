@@ -1,6 +1,6 @@
 import { buildContext } from './loader.js';
 import { rules } from './rules/index.js';
-import type { CheckResult, Issue } from './types.js';
+import type { CheckResult, Issue, Severity } from './types.js';
 
 export interface CheckOptions {
   /** Subset of rule ids to run; defaults to all. */
@@ -25,4 +25,15 @@ export function check(tsconfigPath: string, options: CheckOptions = {}): CheckRe
   for (const i of issues) counts[i.severity] += 1;
 
   return { tsconfigPath: ctx.tsconfigPath, issues, counts };
+}
+
+const SEV_RANK: Record<Severity, number> = { info: 0, warning: 1, error: 2 };
+
+/**
+ * Decide whether a CheckResult should fail CI given a maximum allowed severity.
+ * Returns true when the result contains any issue whose severity is >= threshold.
+ */
+export function exceedsThreshold(result: CheckResult, threshold: Severity): boolean {
+  const min = SEV_RANK[threshold];
+  return result.issues.some((i) => SEV_RANK[i.severity] >= min);
 }
