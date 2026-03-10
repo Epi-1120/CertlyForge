@@ -8,6 +8,7 @@ import { isolatedModulesForEsm } from './isolated-modules-for-esm.js';
 import { allowSyntheticWithoutInterop } from './allow-synthetic-without-interop.js';
 import { declarationWithoutOutdir } from './declaration-without-outdir.js';
 import { decoratorMetadataPair } from './decorator-metadata-pair.js';
+import { typesFieldMissing } from './types-field-missing.js';
 
 export const rules: readonly Rule[] = [
   moduleResolutionMismatch,
@@ -19,6 +20,7 @@ export const rules: readonly Rule[] = [
   allowSyntheticWithoutInterop,
   declarationWithoutOutdir,
   decoratorMetadataPair,
+  typesFieldMissing,
 ];
 
 export function findRule(id: string): Rule | undefined {
