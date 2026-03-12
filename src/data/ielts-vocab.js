@@ -1,0 +1,22 @@
+﻿export const ieltsVocab = [
+  { word: 'substantial', meaning: 'large in amount', example: 'A substantial increase in prices.', level: 'B2', topic: 'academic' },
+  { word: 'deteriorate', meaning: 'to become worse', example: 'Air quality continues to deteriorate.', level: 'C1', topic: 'academic' },
+  { word: 'fluctuate', meaning: 'rise and fall irregularly', example: 'Oil prices fluctuate with demand.', level: 'C1', topic: 'academic' },
+  { word: 'implement', meaning: 'to put into effect', example: 'The government will implement new policies.', level: 'B2', topic: 'academic' },
+  { word: 'prevalent', meaning: 'widespread', example: 'Obesity is increasingly prevalent.', level: 'C1', topic: 'academic' },
+  { word: 'mitigate', meaning: 'to make less severe', example: 'Trees help mitigate climate change.', level: 'C1', topic: 'environment' },
+  { word: 'unprecedented', meaning: 'never done before', example: 'Unprecedented disruption to travel.', level: 'C1', topic: 'academic' },
+  { word: 'feasible', meaning: 'possible and practical', example: 'Solar is now a feasible alternative.', level: 'B2', topic: 'technology' },
+  { word: 'sustainable', meaning: 'able to continue without damage', example: 'Sustainable farming practices.', level: 'B2', topic: 'environment' },
+  { word: 'infrastructure', meaning: 'basic physical systems', example: 'Investment in infrastructure needed.', level: 'B2', topic: 'society' },
+  { word: 'innovation', meaning: 'a new method or idea', example: 'Innovation drives economic growth.', level: 'B2', topic: 'technology' },
+  { word: 'obsolete', meaning: 'no longer used', example: 'Skills made obsolete by automation.', level: 'C1', topic: 'technology' },
+  { word: 'collaborate', meaning: 'to work together', example: 'Countries collaborate on research.', level: 'B2', topic: 'academic' },
+  { word: 'allocate', meaning: 'to distribute for a purpose', example: 'Budget allocates more to education.', level: 'C1', topic: 'academic' },
+  { word: 'biodiversity', meaning: 'variety of life', example: 'Deforestation threatens biodiversity.', level: 'C1', topic: 'environment' },
+  { word: 'congestion', meaning: 'overcrowding of traffic', example: 'Traffic congestion costs billions.', level: 'B2', topic: 'daily' },
+  { word: 'commute', meaning: 'travel between home and work', example: 'Many commute over an hour daily.', level: 'B1', topic: 'daily' },
+  { word: 'demographic', meaning: 'relating to population', example: 'Demographic changes affect pensions.', level: 'C1', topic: 'society' },
+  { word: 'exacerbate', meaning: 'to make worse', example: 'Drought exacerbated food shortages.', level: 'C1', topic: 'environment' },
+  { word: 'inevitable', meaning: 'certain to happen', example: 'Some climate change is inevitable.', level: 'B2', topic: 'academic' }
+]
