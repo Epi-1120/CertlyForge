@@ -31,3 +31,13 @@ export async function createReply(postId, reply) {
   const snap = await get(ref(db, `community/posts/${postId}/replyCount`))
   await update(ref(db, `community/posts/${postId}`), { replyCount: (snap.val()||0) + 1 })
 }
+
+
+export async function toggleLike(postId, uid) {
+  if (!db) return false
+  const likedRef = ref(db, `community/posts/${postId}/likedBy/${uid}`)
+  const snap = await get(likedRef)
+  if (snap.exists()) { await remove(likedRef); const ls = await get(ref(db, `community/posts/${postId}/likes`)); await update(ref(db, `community/posts/${postId}`), { likes: Math.max(0, (ls.val()||1)-1) }); return false }
+  else { await set(likedRef, true); const ls = await get(ref(db, `community/posts/${postId}/likes`)); await update(ref(db, `community/posts/${postId}`), { likes: (ls.val()||0)+1 }); return true }
+}
+
