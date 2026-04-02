@@ -7,6 +7,7 @@ export async function getPosts() {
   if (!snap.exists()) return []
   return Object.entries(snap.val())
     .map(([id, v]) => ({ id, authorId: v.authorId||'', authorName: v.authorName||'anon', title: v.title||'', content: v.content||'', certTag: v.certTag, likes: v.likes||0, replyCount: v.replyCount||0, createdAt: v.createdAt||new Date().toISOString() }))
+    // sort newest first (was sorting oldest first before, oops)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
 }
 
