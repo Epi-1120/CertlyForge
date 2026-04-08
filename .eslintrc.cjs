@@ -18,7 +18,9 @@ module.exports = {
       'error',
       { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
     ],
-    '@typescript-eslint/consistent-type-imports': 'warn',
+    '@typescript-eslint/consistent-type-imports': 'error',
+    '@typescript-eslint/no-floating-promises': 'error',
+    'no-console': ['warn', { allow: ['error', 'warn'] }],
   },
   ignorePatterns: ['dist', 'node_modules', 'test/fixtures'],
 };
