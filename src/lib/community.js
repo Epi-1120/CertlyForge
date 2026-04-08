@@ -42,3 +42,11 @@ export async function toggleLike(postId, uid) {
   else { await set(likedRef, true); const ls = await get(ref(db, `community/posts/${postId}/likes`)); await update(ref(db, `community/posts/${postId}`), { likes: (ls.val()||0)+1 }); return true }
 }
 
+
+
+export async function deletePost(postId) {
+  if (!db) return
+  await remove(ref(db, `community/posts/${postId}`))
+  await remove(ref(db, `community/replies/${postId}`))
+}
+
