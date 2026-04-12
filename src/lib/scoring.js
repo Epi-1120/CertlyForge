@@ -28,3 +28,13 @@ export function domainBreakdown(questions, selected, domains) {
     })
     .filter(Boolean)
 }
+
+
+export function calcGrade(pct) {
+  if (pct >= 90) return 'A+'
+  if (pct >= 80) return 'A'
+  if (pct >= 70) return 'B'
+  if (pct >= 60) return 'C'
+  return 'D'
+}
+
