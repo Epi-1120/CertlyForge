@@ -53,3 +53,4 @@ const pct = computed(() => Math.round(correct.value / props.exam.questions.lengt
 .expl { color: #666; font-size: 0.85rem; font-style: italic; }
 </style>
 
+
