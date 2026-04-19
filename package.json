@@ -1,9 +1,8 @@
 {
   "name": "tsconfig-doctor",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Diagnose common tsconfig.json configuration problems.",
   "license": "MIT",
-  "private": true,
   "author": "Epi Lo",
   "repository": {
     "type": "git",
@@ -27,6 +26,12 @@
   "bin": {
     "tsconfig-doctor": "dist/cli.js"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
   "scripts": {
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
