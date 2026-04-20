@@ -1,5 +1,5 @@
 ﻿import { describe, it, expect } from 'vitest'
-import { countCorrect, calcPercentage, didPass, domainBreakdown } from './scoring.js'
+import { countCorrect, calcPercentage, didPass, domainBreakdown } from './scoring.ts'
 function q(ci, domain = 'Audit') { return { id: 'q1', question: 'stub', options: ['A','B','C','D'], correctIndex: ci, explanation: '', domain } }
 describe('countCorrect', () => {
   it('counts matching answers', () => { expect(countCorrect([q(0), q(2), q(1)], [0, 2, 1])).toBe(3) })
