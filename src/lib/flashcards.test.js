@@ -1,6 +1,6 @@
 ﻿import { describe, it, expect, vi } from 'vitest'
 vi.mock('./firebase.js', () => ({ db: null }))
-import { sm2, getDueCards } from './flashcards.js'
+import { sm2, getDueCards } from './flashcards.ts'
 function makeCard(o = {}) { return { id: 'c1', front: 'Q', back: 'A', interval: 0, repetition: 0, easeFactor: 2.5, nextReview: new Date().toISOString(), ...o } }
 describe('sm2', () => {
   it('resets on quality < 3', () => { const r = sm2(makeCard({ interval: 10, repetition: 4 }), 2); expect(r.interval).toBe(1); expect(r.repetition).toBe(0) })
