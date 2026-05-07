@@ -51,6 +51,9 @@ const pct = computed(() => Math.round(correct.value / props.exam.questions.lengt
 .review.right { border-left-color: #10b981; background: #f0fdf4; }
 .review.wrong { border-left-color: #ef4444; background: #fef2f2; }
 .expl { color: #666; font-size: 0.85rem; font-style: italic; }
+@media (max-width: 640px) { .qcard { padding: 1rem; } .options button { font-size: 0.9rem; } }
 </style>
+
+
 
 
